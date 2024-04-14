@@ -54,14 +54,13 @@ Milestone 5 :
 
 //Prendo la riga dove appendere tutte le immagini
 const rowThumbnailsElem = document.querySelector(".my-thumbnails");
-console.log(rowThumbnailsElem);
+/* console.log(rowThumbnailsElem); */
 
 
 //Milestone 1
 //per ogni elemento oggetto presente nell'array images, scorro e utilizzando una variabile curImg, ne prendo le proprietà
 images.forEach((curImg) => {
-  console.log(curImg);
-
+/*   console.log(curImg);*/
   // Creo l'elemento immagini
   const newThumbImg = document.createElement("img");
 
@@ -70,11 +69,82 @@ images.forEach((curImg) => {
   newThumbImg.src = curImg.image;
   newThumbImg.alt = "Thumbnail of " + curImg.title;
 
-  console.log(newThumbImg);
-
+/*   console.log(newThumbImg); */
   //Appendo nel codice
   rowThumbnailsElem.append(newThumbImg);
 })
 
 
+//Milestone 1 . 2
+//Prendo l'elemento gigante della thumbnail
+const thumbParent = document.querySelector(".my-carousel-images");
+/* console.log(thumbParent); */
+
+//Stabilisco che la prima immagine dell'array è quella attiva nella big thumbnail
+
+//Popolo la big thumbnail
+images.forEach((curImg, index) => {
+    // Creo l'elemento immagini
+    /* console.log(curImg, index) */
+    //In questo caso inizializzo al primo
+    const newBigThumbImg = document.createElement("div");
+    if(index === 0){
+      newBigThumbImg.classList.add("my-carousel-item", "active");
+      newBigThumbImg.innerHTML = `
+      <img
+        class="img-fluid"
+        src="${curImg.image}"
+        alt="${curImg.title}"
+      />
+                  <div class="item-description px-3">
+                    <h2>${curImg.title}</h2>
+                    <p>
+                      ${curImg.text}
+                    </p>
+                  </div>`
+    } else {
+      newBigThumbImg.classList.add("my-carousel-item")
+      newBigThumbImg.innerHTML = `
+      <img
+        class="img-fluid"
+        src="${curImg.image}"
+        alt="${curImg.title}"
+      />
+                  <div class="item-description px-3">
+                    <h2>${curImg.title}</h2>
+                    <p>
+                      ${curImg.text}
+                    </p>
+                  </div>`
+    }
+    
+    /* console.log(newBigThumbImg); */
+    //Appendo nel codice
+    thumbParent.append(newBigThumbImg);
+})
+
+// ---------------------------------------------------------------
+
+
 //Milestone 2
+const prevBtn = document.querySelector(".my-previous");
+/* console.log(prevBtn); */
+
+const nextBtn = document.querySelector(".my-next");
+/* console.log(nextBtn); */
+
+
+
+
+prevBtn.addEventListener("click", preImgSlide);
+nextBtn.addEventListener("click", nextImgSlide);
+
+
+
+function preImgSlide(){
+  console.log("pre")
+}
+
+function nextImgSlide(){
+  console.log("next")
+}
