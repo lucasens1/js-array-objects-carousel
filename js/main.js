@@ -148,3 +148,13 @@ function preImgSlide(){
   indexActive = (indexActive === 0) ? itemsCarousel.length - 1 : indexActive - 1;
   displayCarouselItem(indexActive);
 }
+
+/* BONUS 1:
+Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente. */
+const rowNode = document.querySelectorAll(".my-thumbnail")
+console.log(rowNode)
+for(let l = 0; l < rowNode.length; l++){
+  rowNode[l].addEventListener("click", () => {
+    displayCarouselItem(l);
+  })
+}
