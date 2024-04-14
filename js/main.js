@@ -133,7 +133,9 @@ const itemsCarousel = document.querySelectorAll('.my-carousel-item');
 console.log(itemsCarousel);
 
 function displayCarouselItem(indexToShow){
+  //Mi servo di un ciclo che toglie la classe active all'item corrente (tutti)
   itemsCarousel.forEach(curItem => curItem.classList.remove('active'));
+  //Aggiunge all'elemento con l'indice passato la classe active
   itemsCarousel[indexToShow].classList.add('active');
 }
 
@@ -154,7 +156,9 @@ Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’imma
 const rowNode = document.querySelectorAll(".my-thumbnail")
 console.log(rowNode)
 for(let l = 0; l < rowNode.length; l++){
+  //Entro nel nodo con l'indice aggiungo l'Event e poi semplicemente passo l'indice collegato all'immagine nella funzione creata precedentemente
   rowNode[l].addEventListener("click", () => {
-    displayCarouselItem(l);
+    indexActive = l;
+    displayCarouselItem(indexActive);
   })
 }
