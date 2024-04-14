@@ -49,7 +49,7 @@ const rowThumbnailsElem = document.querySelector(".my-thumbnails");
 //Milestone 1
 //per ogni elemento oggetto presente nell'array images, scorro e utilizzando una variabile curImg, ne prendo le proprietà
 images.forEach((curImg) => {
-/*   console.log(curImg);*/
+  /*   console.log(curImg);*/
   // Creo l'elemento immagini
   const newThumbImg = document.createElement("img");
 
@@ -58,7 +58,7 @@ images.forEach((curImg) => {
   newThumbImg.src = curImg.image;
   newThumbImg.alt = "Thumbnail of " + curImg.title;
 
-/*   console.log(newThumbImg); */
+  /*   console.log(newThumbImg); */
   //Appendo nel codice
   rowThumbnailsElem.append(newThumbImg);
 })
@@ -73,13 +73,13 @@ const thumbParent = document.querySelector(".my-carousel-images");
 
 //Popolo la big thumbnail
 images.forEach((curImg, index) => {
-    // Creo l'elemento immagini
-    /* console.log(curImg, index) */
-    //In questo caso inizializzo al primo
-    const newBigThumbImg = document.createElement("div");
-    if(index === 0){
-      newBigThumbImg.classList.add("my-carousel-item", "active");
-      newBigThumbImg.innerHTML = `
+  // Creo l'elemento immagini
+  /* console.log(curImg, index) */
+  //In questo caso inizializzo al primo
+  const newBigThumbImg = document.createElement("div");
+  if (index === 0) {
+    newBigThumbImg.classList.add("my-carousel-item", "active");
+    newBigThumbImg.innerHTML = `
       <img
         class="img-fluid"
         src="${curImg.image}"
@@ -91,9 +91,9 @@ images.forEach((curImg, index) => {
                       ${curImg.text}
                     </p>
                   </div>`
-    } else {
-      newBigThumbImg.classList.add("my-carousel-item")
-      newBigThumbImg.innerHTML = `
+  } else {
+    newBigThumbImg.classList.add("my-carousel-item")
+    newBigThumbImg.innerHTML = `
       <img
         class="img-fluid"
         src="${curImg.image}"
@@ -105,11 +105,11 @@ images.forEach((curImg, index) => {
                       ${curImg.text}
                     </p>
                   </div>`
-    }
-    
-    /* console.log(newBigThumbImg); */
-    //Appendo nel codice
-    thumbParent.append(newBigThumbImg);
+  }
+
+  /* console.log(newBigThumbImg); */
+  //Appendo nel codice
+  thumbParent.append(newBigThumbImg);
 })
 
 // ---------------------------------------------------------------
@@ -132,21 +132,21 @@ let indexActive = 0;
 const itemsCarousel = document.querySelectorAll('.my-carousel-item');
 console.log(itemsCarousel);
 
-function displayCarouselItem(indexToShow){
+function displayCarouselItem(indexToShow) {
   //Mi servo di un ciclo che toglie la classe active all'item corrente (tutti)
   itemsCarousel.forEach(curItem => curItem.classList.remove('active'));
   //Aggiunge all'elemento con l'indice passato la classe active
   itemsCarousel[indexToShow].classList.add('active');
 }
 
-function nextImgSlide(){
+function nextImgSlide() {
   //Operatore ternario : l'indice attivo è posizionato nell'ultimo elemento dell'array? Allora Azzero Altrimenti Incremento
   indexActive = (indexActive === itemsCarousel.length - 1) ? 0 : indexActive + 1
   displayCarouselItem(indexActive);
 }
 
-function preImgSlide(){
-    //Operatore ternario : l'indice attivo è posizionato nel primo elemento dell'array? Allora Posiziono all'ultimo indice dell'array Altrimenti Decremento
+function preImgSlide() {
+  //Operatore ternario : l'indice attivo è posizionato nel primo elemento dell'array? Allora Posiziono all'ultimo indice dell'array Altrimenti Decremento
   indexActive = (indexActive === 0) ? itemsCarousel.length - 1 : indexActive - 1;
   displayCarouselItem(indexActive);
 }
@@ -155,10 +155,14 @@ function preImgSlide(){
 Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente. */
 const rowNode = document.querySelectorAll(".my-thumbnail")
 console.log(rowNode)
-for(let l = 0; l < rowNode.length; l++){
+for (let l = 0; l < rowNode.length; l++) {
   //Entro nel nodo con l'indice aggiungo l'Event e poi semplicemente passo l'indice collegato all'immagine nella funzione creata precedentemente
   rowNode[l].addEventListener("click", () => {
     indexActive = l;
     displayCarouselItem(indexActive);
+    /* stopAutoplay(); */
   })
 }
+
+/* BONUS 2:
+Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva. */
