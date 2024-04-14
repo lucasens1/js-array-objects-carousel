@@ -39,18 +39,7 @@ BONUS 3:
 Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay.
 Buon lavoro e buon divertimento! :slightly_smiling_face: :muscle: :paperella: */
 
-/* Milestone 1 :
-- Elimino il contenuto statico .. 
-- const Array -> prendo la row -> ciclo che scorre Array -> creo Elemento ad ogni ciclato -> scrivo nell'elemento -> Appendo l'elemento al Padre /row
-Milestone 2 :
-- aggiungo un EventListener ai bottoni -> ciclo a dx e ciclo a sx -> Importante studiare i casi limite : Parto dal primo e torno indietro ? Parto dall'ultimo e vado avanti
-Milestone 3 :
-- Aggiungo le thumbnails, delle sorta di immagini link che al click mi portino l'immagine clickata sul blocco grande.
-- Quindi estaggo ogni elemento che mi serve, le miniature .small-block, la foto in grande .big-block -> rendo le foto interattive quindi con Event listener aggiunto magari al div di appartenenza
-Milestone 4 : 
-- SetTimeout
-Milestone 5 :
-- Creo bottoni magari dinamicamente, invertono ordine di lettura e mettono pausa. */
+
 
 //Prendo la riga dove appendere tutte le immagini
 const rowThumbnailsElem = document.querySelector(".my-thumbnails");
@@ -125,26 +114,37 @@ images.forEach((curImg, index) => {
 
 // ---------------------------------------------------------------
 
+/* Milestone 2:
+Aggiungere il **ciclo infinito** del carosello. Ovvero se la miniatura attiva è la prima e l'utente clicca la freccia verso destra, la miniatura che deve attivarsi sarà l'ultima e viceversa per l'ultima miniatura se l'utente clicca la freccia verso sinistra. */
 
-//Milestone 2
 const prevBtn = document.querySelector(".my-previous");
 /* console.log(prevBtn); */
-
 const nextBtn = document.querySelector(".my-next");
 /* console.log(nextBtn); */
-
-
-
 
 prevBtn.addEventListener("click", preImgSlide);
 nextBtn.addEventListener("click", nextImgSlide);
 
+//Mi servo di un indice
+let indexActive = 0;
 
+//Prendo l'array Node di item del Carosello
+const itemsCarousel = document.querySelectorAll('.my-carousel-item');
+console.log(itemsCarousel);
 
-function preImgSlide(){
-  console.log("pre")
+function displayCarouselItem(indexToShow){
+  itemsCarousel.forEach(curItem => curItem.classList.remove('active'));
+  itemsCarousel[indexToShow].classList.add('active');
 }
 
 function nextImgSlide(){
-  console.log("next")
+  //Operatore ternario : l'indice attivo è posizionato nell'ultimo elemento dell'array? Allora Azzero Altrimenti Incremento
+  indexActive = (indexActive === itemsCarousel.length - 1) ? 0 : indexActive + 1
+  displayCarouselItem(indexActive);
+}
+
+function preImgSlide(){
+    //Operatore ternario : l'indice attivo è posizionato nel primo elemento dell'array? Allora Posiziono all'ultimo indice dell'array Altrimenti Decremento
+  indexActive = (indexActive === 0) ? itemsCarousel.length - 1 : indexActive - 1;
+  displayCarouselItem(indexActive);
 }
