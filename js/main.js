@@ -48,16 +48,24 @@ const rowThumbnailsElem = document.querySelector(".my-thumbnails");
 
 //Milestone 1
 //per ogni elemento oggetto presente nell'array images, scorro e utilizzando una variabile curImg, ne prendo le proprietà
-images.forEach((curImg) => {
+images.forEach((curImg, index) => {
   /*   console.log(curImg);*/
   // Creo l'elemento immagini
   const newThumbImg = document.createElement("img");
-
+  if(index === 0){
+    newThumbImg.className = "img-fluid my-thumbnail active";
+    newThumbImg.src = curImg.image;
+    newThumbImg.alt = "Thumbnail of " + curImg.title;
+  }else {
+    newThumbImg.className = "img-fluid my-thumbnail";
+    newThumbImg.src = curImg.image;
+    newThumbImg.alt = "Thumbnail of " + curImg.title;
+    newThumbImg.addEventListener("click", function() {
+    displayCarouselItem(index);
+  })
+  }
   // Non potendo scrivere usando innerHTML causa self-closing tag, uso i suoi attributi
-  newThumbImg.className = "img-fluid my-thumbnail active";
-  newThumbImg.src = curImg.image;
-  newThumbImg.alt = "Thumbnail of " + curImg.title;
-
+  
   /*   console.log(newThumbImg); */
   //Appendo nel codice
   rowThumbnailsElem.append(newThumbImg);
@@ -160,9 +168,38 @@ for (let l = 0; l < rowNode.length; l++) {
   rowNode[l].addEventListener("click", () => {
     indexActive = l;
     displayCarouselItem(indexActive);
-    /* stopAutoplay(); */
   })
 }
 
 /* BONUS 2:
 Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva. */
+//Partendo dalla situazione base quindi index = 0 dopo 3 secondi index + 1, index + 1, index + 1, index + 1, index = length - 1? Allora index 0
+console.log(itemsCarousel)
+
+//Variabile che ogni 3 secondi fa partire nextImgSlide
+let clock = setInterval(nextImgSlide, 3000);
+
+document.getElementById('my-stop-button').addEventListener("click", function(){
+  //Se interval attivo 
+  if(clock !== null){
+    console.log("ALLORA clock = null")
+    clearInterval(clock);
+    clock = null;
+  }else {
+    console.log("ALTRIMENTI clock = setInterval")
+    clock = setInterval(nextImgSlide, 3000);
+  }
+})
+
+
+
+document.getElementById('my-order-button').addEventListener("click", function(){
+  if(clock !== null){
+    console.log("ALLORA invClock = null")
+    clearInterval(clock);
+    clock = null;
+  }else {
+    console.log("ALTRIMENTI invClock = setInterval")
+    clock = setInterval(preImgSlide, 3000);
+  }
+})
